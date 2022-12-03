@@ -1,0 +1,18 @@
+{
+    "name":"Zombie",
+    "init":"-2",
+    "hd_size":"8",
+    "hd_num":"3",
+    "hit_bonus":"9",
+    "experience":"50",
+    "armour_class":"8",
+    "num_attacks":"1",
+    "attack":[{
+        "atk_name":"Slam",
+        "atk_bonus":"3", 
+        "atk_range":"5",
+        "dmg_dice_size":"6",
+        "dmg_dice_num":"1",
+        "dmg_bonus":"1"
+        }]
+}
