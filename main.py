@@ -2,7 +2,6 @@
 
 from monster import gamestate
 
-
 def main():
     RUNNING = True
     monsters = []
@@ -24,7 +23,13 @@ def main():
                 gameboard.create_player(choice[3:])
         elif choice.lower()[:1] == "p":
             gameboard.print_board()
-        elif choice.lower()[:1]
+        elif choice.lower()[:1] == "a":
+            for monster in gameboard.monsters:
+                monster.attack()
+        elif choice.lower()[:1] == 'h':
+            tohit = int(choice[5:7])
+            damage = int(choice[8:])
+            gameboard.monsters[int(choice[2:4])].hit(tohit, damage)
         else:
-            print("I'm sorry, that's not an option.")
+            print("{choice}: Not a valid option")
             continue

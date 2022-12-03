@@ -1,6 +1,7 @@
 import json
 
 from monster import dice
+import copy
 
 MOD = 20
 
@@ -36,6 +37,9 @@ class Monster:
 
     def __str__(self):
         return f'{self.initiative}%{self.name}-{self.id} [{self.armour_class}]({self.hit_points - self.damage}/{self.hit_points})'
+    
+    def __copy__():
+        return self
 
     def hit(self, to_hit, damage):
         if to_hit > self.armour_class:
@@ -65,6 +69,8 @@ class Player:
     def __str__(self):
         return f'{self.initiative}%{self.name}[{self.armour_class}]'
 
+    def __copy__():
+        return self
 class Board:
     def __init__(self, monsters, players):
         self.monsters = monsters
@@ -72,15 +78,15 @@ class Board:
 
     def create_monster(self, file):
         newmonster = Monster(file)
-        self.monsters.append(newmonster)
+        self.monsters.append(copy.copy(newmonster))
 
     def create_player(self, initiative):
         newplayer = Player(initiative)
-        self.players.append(newplayer)
+        self.players.append(copy.copy(newplayer))
 
     def print_board(self):
-        init_order = players
-        for monster in monsters:
-            init_order.append(monster)
-        for entry in init_order.sort(reverse=True):
-            print(entry)
+        init_order = copy.copy(self.players)
+        for player in init_order.sort(reverse=True):
+            print(player)
+        for monster in self.monsters:
+            print(monster)
