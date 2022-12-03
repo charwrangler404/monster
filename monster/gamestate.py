@@ -1,7 +1,7 @@
 import json
 
 from monster import dice
-import copy
+from copy import copy
 
 MOD = 20
 
@@ -73,19 +73,19 @@ class Player:
         return self
 class Board:
     def __init__(self, monsters, players):
-        self.monsters = monsters
-        self.players = players
+        self.monsters = copy(monsters)
+        self.players = copy(players)
 
     def create_monster(self, file):
         newmonster = Monster(file)
-        self.monsters.append(copy.copy(newmonster))
+        self.monsters.append(copy(newmonster))
 
     def create_player(self, initiative):
         newplayer = Player(initiative)
-        self.players.append(copy.copy(newplayer))
+        self.players.append(copy(newplayer))
 
     def print_board(self):
-        init_order = copy.copy(self.players)
+        init_order = copy(self.players)
         for player in init_order.sort(reverse=True):
             print(player)
         for monster in self.monsters:
