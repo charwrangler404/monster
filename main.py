@@ -15,9 +15,10 @@ def main():
             print('Monsters: cm zombie.json')
             print('Player: cp <init_roll>')
             print("p: Print board")
-            print("a: attack - a")
-            print("h: hit - h <index> <tohit> <dmg>")
-            print("r: end round")
+            print("a: Attack - a")
+            print("h: Hit - h <index> <tohit> <dmg>")
+            print("r: end Round")
+            print("q: Quit")
         elif choice.lower()[:1] == "c":
             if choice.lower()[1:2] == "m":
                 gameboard.create_monster(choice[3:], len(monsters)+1)
@@ -32,6 +33,8 @@ def main():
             tohit = int(choice[5:7])
             damage = int(choice[8:])
             gameboard.monsters[int(choice[2:4])].hit(tohit, damage)
+        elif choice.lower()[:1] == 'q':
+            exit() 
         else:
             print("{choice}: Not a valid option")
             continue
