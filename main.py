@@ -9,12 +9,14 @@ def main():
     gameboard = gamestate.Board(monsters, players)
     while RUNNING == True:
         choice = input("H for help :>")
-        if choice.lower()[:1] == "h":
+        if choice.lower()[:4] == "help":
             print("Menu:")
             print("c: Create")
+            print('Monsters: cm zombie.json')
+            print('Player: cp <init_roll>')
             print("p: Print board")
-            print("a: attack")
-            print("h: hit")
+            print("a: attack - a")
+            print("h: hit - h <index> <tohit> <dmg>")
             print("r: end round")
         elif choice.lower()[:1] == "c":
             if choice.lower()[1:2] == "m":
