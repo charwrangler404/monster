@@ -38,9 +38,6 @@ class Monster:
     def __str__(self):
         return f'{self.initiative}%{self.name}-{self.id} [{self.armour_class}]({self.hit_points - self.damage}/{self.hit_points})'
     
-    def __copy__():
-        return self
-
     def hit(self, to_hit, damage):
         if to_hit > self.armour_class:
             self.damage += damage
@@ -69,8 +66,6 @@ class Player:
     def __str__(self):
         return f'{self.initiative}%{self.name}[{self.armour_class}]'
 
-    def __copy__():
-        return self
 class Board:
     def __init__(self, monsters, players):
         self.monsters = copy(monsters)

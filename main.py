@@ -8,11 +8,11 @@ def main():
     players = []
     gameboard = gamestate.Board(monsters, players)
     while RUNNING == True:
-        choice = input("H for help :>")
+        choice = input(":> ")
         if choice.lower()[:4] == "help":
             print("Menu:")
             print("c: Create")
-            print('Monsters: cm zombie.json')
+            print('Monsters: cm <num> zombie.json')
             print('Player: cp <init_roll>')
             print("p: Print board")
             print("a: Attack - a")
@@ -21,6 +21,7 @@ def main():
             print("q: Quit")
         elif choice.lower()[:1] == "c":
             if choice.lower()[1:2] == "m":
+                
                 gameboard.create_monster(choice[3:], len(monsters)+1)
             elif choice.lower()[1:2] == "p":
                 gameboard.create_player(choice[3:])
@@ -36,5 +37,5 @@ def main():
         elif choice.lower()[:1] == 'q':
             exit() 
         else:
-            print("{choice}: Not a valid option")
+            print(f"{choice}: Not a valid option")
             continue
