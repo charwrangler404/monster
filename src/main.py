@@ -6,7 +6,7 @@ from random import randint
 from collections import defaultdict
 
 initiative = 100
-initiative_order = defaultdict(dict)
+initiative_order = {}
 monster_catalogue = []
 player_catalogue = []
 monsters = {}
@@ -31,6 +31,66 @@ players = {}
 #    # Otherwise, return the two parts.
 #    return parts[0], parts[1]
 #
+class Character:
+    alive = True
+    def __init__(self, template):
+        self.data = json.loads(template)
+    def heal(self, heal):
+        self.hp += min(self.data['max_hp'] - self.hp, heal)
+    def damage(self, damage):
+        self.hp -= damage
+        if self.hp < 0:
+            self.alive = False
+            
+
+class Monster(Character):
+    def __init__(self, template):
+        self.__init__()
+        self.hp = roll_hp(self.data["hd"])
+        self.init = roll("1d20") + modifier(self.data["dex"])
+    
+    def at_death(self):
+        monsters = rebuild_monster_table(monsters)
+
+
+
+class Player(Character):
+    last_stand = False
+    last_stand_rolls = []
+
+    def __init__(self, template, initiative):
+        self.__init__()
+        self.init = initiative
+    def damage(self, damage):
+        self.hp -= damage
+        if self.hp < 1:
+            self.last_stand = True
+
+    def last_stand(self, roll):
+        success = 0
+        failure = 0
+        if len(self.last_stand_rolls) < 6:
+            self.last_stand_rolls.append(roll)
+        for iterroll in self.last_stand_rolls:
+            if iterroll < 10:
+                success += 1
+            else:
+                failure -= 1
+        
+        if failure <= 3:
+            self.alive = False
+
+    def at_death(self):
+        players = rebuild_player_table(players)
+
+
+def rebuild_monster_table(monsters):
+    newmonsters = {}
+    for monster in monsters:
+        if monster.alive == True:
+            newmonster
+
+
 def modifier(stat):
     """
     Returns the modifer of the stat passed
@@ -170,11 +230,26 @@ class MonsterSimulator(cmd2.Cmd):
 
     def next_init(self):
         initiative -= 1
+        i = 0
+        if initiative == 0:
+            initiative = 100
+
+        for value in initiative_order:
+            if initiative == value:
+                i += 1
+        for player in players:
+            if player["init"] == initiative:
+                print(f"Next player: {player['name']} with initiative {player['init']}")
+        for monster in monsters:
+            if monster["init"] == initiative:
+                print(f"Next monster {monster['name']} with initiative {monster['init']}")
+
 
     def damage_monster(self, monsterstring, damage):
         pass
 
     def remove_monster(self, monsterstring):
+
         pass
 
     def show_init(self):
