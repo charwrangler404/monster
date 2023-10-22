@@ -88,8 +88,15 @@ def rebuild_monster_table(monsters):
     newmonsters = {}
     for monster in monsters:
         if monster.alive == True:
-            newmonster
+           newmonsters.update(monster)
+    return newmonsters
 
+def rebuild_player_table(players):
+    newplayers = {}
+    for player in players:
+        if player.alive == True:
+            newplayers.update(player)
+    return newplayers
 
 def modifier(stat):
     """
